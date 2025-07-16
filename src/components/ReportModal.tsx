@@ -60,8 +60,12 @@ export default function ReportModal({ isOpen, onClose, onSubmit }: ReportModalPr
     <div 
       className="fixed inset-0 bg-transparent z-50 flex items-center justify-center p-4"
       style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+      onClick={onClose}
     >
-      <div className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div 
+        className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-lg font-semibold text-gray-800">Report Incident</h2>
           <button
