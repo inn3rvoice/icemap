@@ -525,27 +525,56 @@ export default function Home() {
   };
 
   const handleCenterLocation = () => {
-    if (navigator.geolocation && mapRef.current) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          mapRef.current?.flyTo({
-            center: [position.coords.longitude, position.coords.latitude],
-            zoom: 14
-          });
-        },
-        (error) => {
-          console.error('Geolocation error:', error);
-          alert('Unable to get your location. Please enable location services and try again.');
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 60000
-        }
-      );
-    } else {
+    if (!navigator.geolocation) {
       alert('Geolocation is not supported by this browser.');
+      return;
     }
+
+    if (!mapRef.current) return;
+
+    // Check if we're on HTTPS or localhost (required for geolocation on mobile)
+    if (typeof window !== 'undefined' && 
+        window.location.protocol !== 'https:' && 
+        !window.location.hostname.includes('localhost') && 
+        window.location.hostname !== '127.0.0.1') {
+      alert('Location services require a secure connection (HTTPS).');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        mapRef.current?.flyTo({
+          center: [position.coords.longitude, position.coords.latitude],
+          zoom: 13
+        });
+      },
+      (error) => {
+        console.error('Geolocation error:', error);
+        let errorMessage = 'Unable to get your location. ';
+        
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage += 'Please allow location access in your browser settings and try again.';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage += 'Location information is unavailable.';
+            break;
+          case error.TIMEOUT:
+            errorMessage += 'Location request timed out. Please try again.';
+            break;
+          default:
+            errorMessage += 'Please enable location services and try again.';
+            break;
+        }
+        
+        alert(errorMessage);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 300000
+      }
+    );
   };
 
   return (

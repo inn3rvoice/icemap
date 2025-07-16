@@ -41,7 +41,7 @@ const Map = forwardRef<MapRef, MapProps>(({ incidents, onIncidentClick }, ref) =
   const map = useRef<mapboxgl.Map | null>(null);
   const [lng, setLng] = useState(-118.2437);
   const [lat, setLat] = useState(34.0522);
-  const [zoom, setZoom] = useState(10);
+  const [zoom, setZoom] = useState(9);
   const [mapError, setMapError] = useState(false);
 
   // Expose map methods to parent component
