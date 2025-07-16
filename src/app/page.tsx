@@ -535,11 +535,7 @@ export default function Home() {
         },
         (error) => {
           console.error('Geolocation error:', error);
-          // Fallback to Los Angeles if geolocation fails
-          mapRef.current?.flyTo({
-            center: [-118.2437, 34.0522],
-            zoom: 10
-          });
+          alert('Unable to get your location. Please enable location services and try again.');
         },
         {
           enableHighAccuracy: true,
@@ -547,6 +543,8 @@ export default function Home() {
           maximumAge: 60000
         }
       );
+    } else {
+      alert('Geolocation is not supported by this browser.');
     }
   };
 
