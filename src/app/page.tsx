@@ -526,12 +526,27 @@ export default function Home() {
 
   const handleCenterLocation = () => {
     if (navigator.geolocation && mapRef.current) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        mapRef.current?.flyTo({
-          center: [position.coords.longitude, position.coords.latitude],
-          zoom: 14
-        });
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          mapRef.current?.flyTo({
+            center: [position.coords.longitude, position.coords.latitude],
+            zoom: 14
+          });
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+          // Fallback to Los Angeles if geolocation fails
+          mapRef.current?.flyTo({
+            center: [-118.2437, 34.0522],
+            zoom: 10
+          });
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000
+        }
+      );
     }
   };
 

@@ -39,8 +39,8 @@ interface MapRef {
 const Map = forwardRef<MapRef, MapProps>(({ incidents, onIncidentClick }, ref) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [lng, setLng] = useState(-74.006);
-  const [lat, setLat] = useState(40.7128);
+  const [lng, setLng] = useState(-118.2437);
+  const [lat, setLat] = useState(34.0522);
   const [zoom, setZoom] = useState(10);
   const [mapError, setMapError] = useState(false);
 
