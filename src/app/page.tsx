@@ -346,10 +346,11 @@ export default function Home() {
       </div>
 
       {/* Report ICE Button */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 pb-safe">
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-30 pb-20 sm:pb-8">
         <button
           onClick={() => setIsReportModalOpen(true)}
           className="bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white py-3 px-6 rounded-full font-semibold shadow-lg transition-colors flex items-center justify-center gap-2 focus:ring-2 focus:ring-orange-300 focus:outline-none touch-manipulation"
+          style={{ marginBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
           aria-label="Report ICE activity"
         >
           <Plus size={18} />
