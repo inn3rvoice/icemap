@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Fix Mapbox GL canvas issues */
+.mapboxgl-canvas {
+  outline: none;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.mapboxgl-canvas-container {
+  cursor: inherit;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.mapboxgl-map {
+  font-family: inherit;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Ensure proper map container sizing */
+.mapboxgl-map {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure map stays visible when modals are open */
+.mapboxgl-canvas, 
+.mapboxgl-canvas-container {
+  z-index: 1 !important;
+}
+
+/* Modal overlays should not interfere with map */
+.modal-backdrop {
+  pointer-events: auto !important;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
